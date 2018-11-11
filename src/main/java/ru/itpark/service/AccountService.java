@@ -13,15 +13,15 @@ public class AccountService {
     public void transfer(int senderId, int recipientId, int amount) {
         Account sender=repository.findById(senderId);
         if (sender == null) {
-            return;
+            throw new IllegalArgumentException();
         }
         if (sender.getBalance() < amount) {
-            return;
+            throw new IllegalArgumentException();
         }
 
         Account recipient=repository.findById(recipientId);
         if(recipient==null){
-            return;
+            throw new IllegalArgumentException();
         }
         sender.setBalance(sender.getBalance()-amount);
         recipient.setBalance(recipient.getBalance()+amount);
